@@ -1,6 +1,12 @@
 pipeline {
     agent any
+    environment {
+        path_to_file = "Neptun"
+        file_name = "SSHMIDT"
+        remote_dir_path = "Neptun"
+        remote_dir_path = "SSHMIDT"
 
+    }
     stages {
         stage('git') {
             steps {
