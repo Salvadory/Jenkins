@@ -4,7 +4,6 @@ pipeline {
         path_to_file = "Neptun"
         file_name = "SSHMIDT"
         remote_dir_path = "Neptun"
-        path_to_file = "SSHMIDT"
 
     }
     stages {
