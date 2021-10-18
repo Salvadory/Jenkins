@@ -4,17 +4,22 @@ pipeline {
     stages {
         stage('git') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
                 git branch: 'main', credentialsId: 'GitHub_SSH_key', url: 'git@github.com:Salvadory/WebSite.git'
                 sh 'pwd'
                 sh 'ls -la'
             }
         }
         
+        
+        
+        
+        
+        
+        
         stage('Build') {
             steps {
                 echo 'Building'
+                
             }
         }
 
