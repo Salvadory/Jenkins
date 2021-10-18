@@ -3,25 +3,22 @@ pipeline {
     environment {
         dst_server = "WEB_server"
         file_name = "index.html"
-
     }
+    // 
     stages {
         stage('git') {
             steps {
                 git branch: 'main', credentialsId: 'GitHub_SSH_key', url: 'git@github.com:Salvadory/WebSite.git'
-                
                 sh 'pwd'
-                sh 'ls -la'
             }
         }
-        
-     
+       
      // sshPublisher(publishers: [sshPublisherDesc(configName: 'SERVER_to_be_deployed', transfers: [sshTransfer(excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/target/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
            
-        
-        stage('Build') {
+        stage('Transfer_ssh') {
             steps {
                 sshPublisher(
+                    failOnError: false,
                     publishers: [
                        sshPublisherDesc(
                           configName: "${dst_server}",
@@ -42,11 +39,20 @@ pipeline {
                               useWorkspaceInPromotion: false,
                               verbose: false
                            )
-                         ]
-                       )
-                     } 
-                   }
-                  
+                         ],
+                         sshRetry: [
+                    retries: 0
+                ]
+              )
+            } 
+          }
+        
+        stage('Build') {
+            steps {
+                echo 'Building'
+            }
+        }
+        
         stage('Test') {
             steps {
                 echo 'Testing'
