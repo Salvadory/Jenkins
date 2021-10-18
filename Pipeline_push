@@ -2,9 +2,7 @@ pipeline {
     agent any
     environment {
         dst_server = "WEB_server"
-        path_to_file = "Neptun"
         file_name = "index.html"
-        remote_dir_path = "Neptun"
 
     }
     stages {
