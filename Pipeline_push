@@ -1,8 +1,9 @@
 pipeline {
     agent any
     environment {
+        dst_server = "WEB_server"
         path_to_file = "Neptun"
-        file_name = "SSHMIDT"
+        file_name = "index.html"
         remote_dir_path = "Neptun"
 
     }
@@ -21,7 +22,7 @@ pipeline {
         
         stage('Build') {
             steps {
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'WEB_server', transfers: [sshTransfer(excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'index.html')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                sshPublisher(publishers: [sshPublisherDesc(configName: ${dst_server}, transfers: [sshTransfer(excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: ${file_name})], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                 
             }
         }
