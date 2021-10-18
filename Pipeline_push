@@ -15,19 +15,31 @@ pipeline {
             }
         }
         
-        stage('example') {
-            steps {
-               publishOverSsh {
-                    server('WEB_server') {
-                        transferSet {
-                             sourceFiles('index.html')
-                 }
-               }
-             }
-           }
-         }
-        
-        
+       publishers {
+        publishOverSsh {
+            server('WEB_server') {
+                credentials('user01') {
+                    pathToKey('path01')
+                }
+                label('WEB_server')
+                transferSet {
+                    sourceFiles('files')
+                    execCommand('command')
+                }
+            }
+            server('WEB_server') {
+                credentials('user2') {
+                    key('key')
+                }
+                label('WEB_server')
+                transferSet {
+                    sourceFiles('files2')
+                    execCommand('command2')
+                }
+            }
+            parameterizedPublishing('PARAMETER')
+        }
+    }
         
         
         
