@@ -2,12 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('git') {
             steps {
-                echo 'Buildingg'
+                echo 'git'
+                git branch: 'main', credentialsId: 'GitHub_SSH_key', url: 'git@github.com:Salvadory/WebSite.git'
             }
         }
-    
+        
+        stage('Build') {
+            steps {
+                echo 'Building'
+            }
+        }
 
         stage('Test') {
             steps {
