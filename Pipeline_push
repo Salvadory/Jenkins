@@ -39,13 +39,10 @@ pipeline {
                               useWorkspaceInPromotion: false,
                               verbose: false
                            )
-                         ],
-                         sshRetry: [
-                    retries: 0
-                ]
-              )
-            } 
-          }
+                         ]
+                      )
+                  } 
+               }
         
         stage('Build') {
             steps {
